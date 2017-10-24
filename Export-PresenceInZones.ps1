@@ -7,8 +7,8 @@ Don't forget to set the $login and $password variable
 Import-Module tracker-ps
 
 $serverHost = "54.158.76.30"
-$login = "login"
-$password = "password"
+$login = "krdima92@gmail.com"
+$password = "123456"
 
 $conn = Connect-IqtFacade -Host $serverHost -Port 8080 -Login $login -Password $password
 
@@ -20,7 +20,6 @@ $globalParams = @{
 	endDate = "2017-10-21";
 	startTime = "8:00";
 	endTime = "17:00";
-	exportFile = "C:\TimeInZones";
 }
 
 if ($conn.Session.user.sites.name -notcontains $globalParams.siteName) {
@@ -38,7 +37,6 @@ $globalParams.endDate = Get-Date -Date $globalParams.endDate
 $resultObjects = @()
 
 for ($i = 0; $i -lt $controlObjects.Count; $i++) {
-	Write-Host "Calculating presence time for $($controlObjects[$i].name)"
 
 	$resultObj = New-Object System.Object
 	$resultObj | Add-Member -MemberType NoteProperty -Name "Control object" -Value $($controlObjects[$i].name)
@@ -120,14 +118,9 @@ for ($i = 0; $i -lt $controlObjects.Count; $i++) {
 	} else {
 			$resultObj | Add-Member -MemberType NoteProperty -Name "Total online" -Value $("")
 	}
-	$currentRow++
-	$resultObjects += $resultObj
+    $resultObjects += $resultObj
 }
 
-$globalParams.exportFile += " on site '$($site.name)' from '$($globalParams.startDate.ToShortDateString()) $($globalParams.startTime.Replace(":","-"))' to '$($globalParams.endDate.ToShortDateString()) $($globalParams.endTime.Replace(":","-"))'.csv"
-
-$resultObjects | Export-Csv $globalParams.exportFile -Delimiter ";" -NoTypeInformation -Encoding UTF8
-
-write-host "Report created in $(((Get-Date) - $reportStartTime).TotalSeconds) seconds"
+$resultObjects | ConvertTo-Csv -NoTypeInformation -Delimiter ";"
 
 Disconnect-IqtFacade
