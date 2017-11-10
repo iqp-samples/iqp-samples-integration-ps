@@ -6,9 +6,9 @@ Don't forget to set the $login and $password variable
 
 Import-Module tracker-ps
 
-$serverHost = "54.158.76.30"
-$login = "krdima92@gmail.com"
-$password = "123456"
+$serverHost = "positron-svc.iquipsys.net"
+$login = "login"
+$password = "password"
 
 $conn = Connect-IqtFacade -Host $serverHost -Port 8080 -Login $login -Password $password
 
@@ -16,9 +16,9 @@ $reportStartTime = Get-Date
 
 $globalParams = @{
 	siteName = "Demo Minesite1";
-	startDate = "2017-10-21";
-	endDate = "2017-10-21";
-	startTime = "8:00";
+	startDate = "2017-11-09";
+	endDate = "2017-11-09";
+	startTime = "08:00";
 	endTime = "17:00";
 }
 

@@ -5,7 +5,7 @@ This sample will display csv format report object presence in site zones in powe
 
 ## Installation
 
-- Install **tracker-ps** Powershell module and add it to **PSModulePath**
+- Install **tracker-ps** Powershell module and add it to **PSModulePath**. **tracker-ps** is a part of **tracker-ps-ws**, how to install it you can see on [this](https://gitlab.com/tracker-services/tracker-ps-ws) page.
 
 - Clone this repository to local disk
 ```bash
@@ -27,6 +27,8 @@ $password = "your password"
     - **$globalParams.endDate** - end date for report data. Date format is the same as start date. If you want create report only for one day set end date the same as start date.
     - **$globalParams.startTime** - start time for report data. Ussualy this is shift start time. Time format is "hh:mm"
     - **$globalParams.endTime** - end time for report data. Ussualy this is shift end time. Time format is "hh:mm"
+    
+    *Hours and minutes has to be set as double digits. For example 05:26, 10:01, 00:00*
 ```
 $globalParams = @{
 	siteName = "Demo Minesite1";
@@ -51,3 +53,9 @@ d";"Workshop";"Powerplant";"Truckshop";"Work zone 1";"Work zone 2";"Work zone  3
 "Marsellus Wallace";"0,003";"";"";"0,815";"";"";"0,233";"0,756";"2,736";"2,241";"1,502";"";"";"";"";"";"";"";"";"7,894"
 ...
 ```
+
+- Also you can redirect script output to file using powershell console. For example - go to iqp-samples-integration-ps folder and execute in console 
+```
+.\Export-PresenceInZones.ps1 | Out-File PresenceInZones.csv
+```
+After command execution in iqp-samples-integration-ps folder will be created PresenceInZones.csv file . This file you can be open in excel or parse any way you want.
